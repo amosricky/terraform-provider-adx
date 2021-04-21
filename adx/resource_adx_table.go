@@ -31,14 +31,14 @@ func resourceADXTable() *schema.Resource {
 			"database_name": {
 				Type:             schema.TypeString,
 				Required:         true,
-				ForceNew:         true,
+				ForceNew:         false,
 				ValidateDiagFunc: stringIsNotEmpty,
 			},
 
 			"name": {
 				Type:             schema.TypeString,
 				Required:         true,
-				ForceNew:         true,
+				ForceNew:         false,
 				ValidateDiagFunc: stringIsNotEmpty,
 			},
 
@@ -48,7 +48,7 @@ func resourceADXTable() *schema.Resource {
 				Computed: true,
 				AtLeastOneOf: []string{"table_schema", "column"},
 				ConflictsWith: []string{"column"},
-				ForceNew:         true,
+				ForceNew:         false,
 				ValidateDiagFunc: stringMatch(
 					regexp.MustCompile("[a-zA-Z0-9:-_,]+"),
 					"Table schema must contain only letters, number, dashes, semicolons, commas and underscores and no spaces",
@@ -59,7 +59,7 @@ func resourceADXTable() *schema.Resource {
 				Type: schema.TypeList,
 				AtLeastOneOf: []string{"table_schema", "column"},
 				ConflictsWith: []string{"table_schema"},
-				ForceNew: true,
+				ForceNew: false,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Resource{
